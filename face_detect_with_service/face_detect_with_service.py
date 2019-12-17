@@ -17,6 +17,7 @@ eye_count  = 0
 # LED setup
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(3, GPIO.OUT)
+GPIO.setup(5, GPIO.OUT)
 
 
 while True:
@@ -37,8 +38,9 @@ while True:
 		grayimg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
 		# face detection
-		face_cascade = cv.CascadeClassifier('/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
-		facerect = face_cascade.detectMultiScale(grayimg, scaleFactor=1.1, minNeighbors=1, minSize=(1, 1))
+		# face_cascade = cv.CascadeClassifier('/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
+		face_cascade = cv.CascadeClassifier('/usr/share/opencv/lbpcascades/lbpcascade_frontalface.xml')
+		facerect = face_cascade.detectMultiScale(grayimg, scaleFactor=1.11, minNeighbors=1, minSize=(100, 100))
 		print "face rectangle"
 		print(facerect)
 		if len(facerect) > 0:
@@ -56,12 +58,14 @@ while True:
 			r = requests.post(url_items, data = payload, proxies = proxies)
 			# r = requests.post(url_items, data = payload)
 			print (r.text)
+			GPIO.output(5, True)
 
 		else:
 			face_count = 0
+			GPIO.output(5, False)
 
 		# LED
-		if 10 < face_count:
+		if 5 < face_count:
 			GPIO.output(3, True)
 		else:
 			GPIO.output(3, False)
