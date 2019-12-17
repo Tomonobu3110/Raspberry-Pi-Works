@@ -1,0 +1,10 @@
+# jpg files
+*.jpg
+*.jpeg
+
+# VIM swap file
+*.swp
+
+# zip file
+*.zip
+
