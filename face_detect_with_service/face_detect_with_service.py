@@ -8,7 +8,6 @@ import numpy as np
 import RPi.GPIO as GPIO
 
 import httplib
-import json
 import requests
 
 # counter
